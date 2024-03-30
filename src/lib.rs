@@ -1234,6 +1234,14 @@ impl Literal {
         Literal::_new(imp::Literal::character(ch))
     }
 
+    /// C string literal.
+    ///
+    /// Created from a normal [`str`] because the literal automatically includes the trailing nul.
+    /// TODO: Can have any byte sequence except `\0`, so maybe use &[u8] instead?
+    pub fn c_string(s: &str) -> Literal {
+        Literal::_new(imp::Literal::c_string(s))
+    }
+
     /// Byte string literal.
     pub fn byte_string(s: &[u8]) -> Literal {
         Literal::_new(imp::Literal::byte_string(s))

@@ -1035,6 +1035,22 @@ impl Literal {
         Literal::_new(repr)
     }
 
+    pub fn c_string(t: &str) -> Self {
+        let mut repr = String::with_capacity(t.len() + 3);
+        repr.push('c');
+        repr.push('"');
+        let mut chars = t.chars();
+        while let Some(ch) = chars.next() {
+            if ch == '\0' {
+                panic!()
+            }
+            // TODO: Escaping from string() and byte_string() helpers
+            repr.push(ch);
+        }
+        repr.push('"');
+        Self::_new(repr)
+    }
+
     pub fn character(t: char) -> Literal {
         let mut repr = String::new();
         repr.push('\'');

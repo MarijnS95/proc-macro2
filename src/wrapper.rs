@@ -862,6 +862,15 @@ impl Literal {
         }
     }
 
+    pub fn c_string(c_string: &str) -> Literal {
+        if inside_proc_macro() {
+            todo!()
+            // Literal::Compiler(proc_macro::Literal::c_string(c_string))
+        } else {
+            Literal::Fallback(fallback::Literal::c_string(c_string))
+        }
+    }
+
     pub fn byte_string(bytes: &[u8]) -> Literal {
         if inside_proc_macro() {
             Literal::Compiler(proc_macro::Literal::byte_string(bytes))
